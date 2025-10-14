@@ -3,7 +3,10 @@ from django import forms
 
 class Formulario_libros(forms.Form):
     
-    pass
-    # nombre = forms.CharField(label="Nombre", required=True)
-    # email = forms.CharField(label="Email", required=True)
-    # contenido = forms.CharField(label="Contenido", widget=forms.Textarea)
+    isbn = forms.CharField(label="Isbn", required=True)
+    titulo = forms.CharField(label="Título", required=True)
+    autor = forms.CharField(label="Autor", required=True)
+    categoria = forms.CharField(label="Categoria")
+    contenido = forms.CharField(label="Contenido", widget=forms.Textarea)
+    imagen = forms.ImageField(label="Imagen")
+    
