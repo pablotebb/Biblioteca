@@ -22,6 +22,11 @@ class HomeViewTest(TestCase):
         response = self.client.get(reverse("critica:Home"))
         self.assertTemplateUsed(response, "critica/home.html")
 
+    def test_form_is_present_in_template(self):
+        response = self.client.get(reverse("critica:Home"))
+        self.assertContains(response, "<form", html=False)
+        self.assertContains(response, "csrfmiddlewaretoken", html=False)
+
 
 class HomeSecurityTest(TestCase):
     """Pruebas de seguridad para la vista home."""

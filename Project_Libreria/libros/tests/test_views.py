@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
 from libros import views
+from django.contrib.auth.models import User
+from libros.models import Libro, Categoria
 
 
 class HomeViewTest(TestCase):
@@ -21,6 +23,11 @@ class HomeViewTest(TestCase):
     def test_home_view_uses_correct_template(self):
         response = self.client.get(reverse("libros:Home"))
         self.assertTemplateUsed(response, "libros/home.html")
+
+    def test_form_is_present_in_template(self):
+        response = self.client.get(reverse("libros:Home"))
+        self.assertContains(response, "<form", html=False)
+        self.assertContains(response, "csrfmiddlewaretoken", html=False)
 
 
 class HomeSecurityTest(TestCase):
