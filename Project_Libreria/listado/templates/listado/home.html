@@ -1,8 +1,108 @@
 {% extends "core/base.html" %}
-
 {% load static %}
 
-
 {% block content %}
-   <h1 style="color: white">Listado de libros</h1>
+  <style>
+    .table-dark-blue thead th {
+      background-color: #1b3a57; /* Azul marino */
+      color: white;
+    }
+
+    .table-dark-blue tbody tr td {
+      color: white;
+      background-color: #2c2c2c;
+    }
+
+    .criticas-list {
+      margin-left: 20px;
+    }
+
+    .leido-true {
+      color: #28a745; /* Verde */
+      font-weight: bold;
+    }
+
+    .leido-false {
+      color: #dc3545; /* Rojo */
+      font-weight: bold;
+    }
+
+    .filter-bar {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #2c2c2c;
+      border-radius: 5px;
+      color: white;
+    }
+  </style>
+
+  <div class="container mt-4">
+    <!-- Filtro LEÍDO -->
+    <div class="filter-bar d-flex align-items-center">
+      <strong>LEIDO: </strong>
+      <div class="form-check form-check-inline ms-3 mb-0">
+        <input class="form-check-input" style="margin-left: 8px;" type="checkbox" id="filter-leido-si" checked onchange="filtrarTabla()">
+        <label class="form-check-label" for="filter-leido-si">Sí</label>
+      </div>
+      <div class="form-check form-check-inline mb-0">
+        <input class="form-check-input" type="checkbox" id="filter-leido-no" checked onchange="filtrarTabla()">
+        <label class="form-check-label" for="filter-leido-no">No</label>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <table id="tabla-libros" class="table table-dark-blue table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Leído</th>
+          <th>Crítica</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for libro in listado %}
+          <tr id="fila-{{ forloop.counter }}" data-leido="{{ libro.leido }}">
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.autor }}</td>
+            <td>
+              {% if libro.leido %}
+                <span class="leido-true">Sí</span>
+              {% else %}
+                <span class="leido-false">No</span>
+              {% endif %}
+            </td>
+            <td>
+              <ul class="criticas-list">
+                {% for critica in libro.criticas.all %}
+                  <li>{{ critica.contenido }}</li>
+                {% empty %}
+                  <li>No hay críticas aún.</li>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function filtrarTabla() {
+      const mostrarSi = document.getElementById("filter-leido-si").checked;
+      const mostrarNo = document.getElementById("filter-leido-no").checked;
+
+      const filas = document.querySelectorAll("#tabla-libros tbody tr");
+
+      filas.forEach(fila => {
+        const esLeido = fila.getAttribute("data-leido") === "True";
+
+        if ((esLeido && mostrarSi) || (!esLeido && mostrarNo)) {
+          fila.style.display = "";
+        } else {
+          fila.style.display = "none";
+        }
+      });
+    }
+  </script>
 {% endblock %}
