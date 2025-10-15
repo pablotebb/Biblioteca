@@ -55,3 +55,35 @@ class HomeSecurityTest(TestCase):
         self.assertNotIn("SECRET_KEY", content)
         self.assertNotIn("DEBUG =", content)
         self.assertNotIn("settings", content.lower())
+
+
+class NavbarLinksTest(TestCase):
+    """Pruebas del navbar común en la plantilla base."""
+
+    def test_navbar_links_present_in_core_home(self):
+        response = self.client.get(reverse("core:Home"))
+        self.assertContains(response, f'href="{reverse("core:Home")}"')
+        self.assertContains(response, f'href="{reverse("listado:Home")}"')
+        self.assertContains(response, f'href="{reverse("libros:Home")}"')
+        self.assertContains(response, f'href="{reverse("critica:Home")}"')
+
+    def test_optional_security_headers_if_present(self):
+        response = self.client.get(reverse("core:Home"))
+        csp = response.get("Content-Security-Policy")
+        if csp is not None:
+            self.assertTrue(len(csp) > 0)
+        referrer = response.get("Referrer-Policy")
+        if referrer is not None:
+            self.assertIn(referrer, [
+                "no-referrer",
+                "no-referrer-when-downgrade",
+                "same-origin",
+                "origin",
+                "strict-origin",
+                "origin-when-cross-origin",
+                "strict-origin-when-cross-origin",
+                "unsafe-url",
+            ])
+        permissions = response.get("Permissions-Policy")
+        if permissions is not None:
+            self.assertTrue(len(permissions) > 0)

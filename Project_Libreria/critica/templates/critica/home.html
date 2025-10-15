@@ -1,11 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-</head>
-<body>
-    <h1>Crítica</h1>
-</body>
-</html>
+{% extends "core/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="contenedorFormulario">
+
+  {% if "valido" in request.GET %}
+    <p style="color: white;">Información enviada correctamente, gracias</p>
+  {% endif %}
+
+  <form action="" method="POST" style="text-align: center;">
+    {% csrf_token %}
+    <table style="color:white; margin:20px auto">
+      {{formulario.as_table}}
+    </table>
+    <input type="submit" value="Grabar" style="width:150px";>
+  </form>
+
+</div>
+{% endblock %}

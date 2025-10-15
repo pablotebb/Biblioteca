@@ -1,6 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
 from listado import views
+from django.contrib.auth.models import User
+from libros.models import Libro, Categoria
+from critica.models import Critica
 
 
 class HomeViewTest(TestCase):
@@ -21,6 +24,24 @@ class HomeViewTest(TestCase):
     def test_home_view_uses_correct_template(self):
         response = self.client.get(reverse("listado:Home"))
         self.assertTemplateUsed(response, "listado/home.html")
+
+    def test_listado_renders_books_and_criticas(self):
+        user = User.objects.create_user(username="tester")
+        categoria = Categoria.objects.create(nombre="Novela")
+        libro = Libro.objects.create(
+            id_libros=user,
+            isbn="123",
+            autor="Autor X",
+            titulo="Titulo X",
+            contenido="Contenido",
+        )
+        libro.categoria.add(categoria)
+        Critica.objects.create(id_libros=libro, contenido="Muy bueno")
+
+        response = self.client.get(reverse("listado:Home"))
+        self.assertContains(response, "Titulo X")
+        self.assertContains(response, "Autor X")
+        self.assertContains(response, "Muy bueno")
 
 
 class HomeSecurityTest(TestCase):

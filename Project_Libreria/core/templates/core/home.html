@@ -1,12 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-</head>
-<body>
-    <h1>Aquí ira el Menu</h1>
-    <span>Listado|</span><span>Libros|</span><span>Crítica</span>
-</body>
-</html>
+{% extends "core/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+   <!-- Cabecera -->
+   <section class="page-section clearfix">
+    <div class="container">
+      <div class="intro">
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{% static 'core/img/principal.jpg' %}" alt="">
+        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+          <h2 class="section-heading mb-4" >
+            <span class="section-heading-upper">Libreria</span>
+            <span class="section-heading-lower">libros</span>
+          </h2>
+          <p class="mb-3">Ver opiniones
+          </p>
+         
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+    <!-- Message -->
+    <section class="page-section cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="cta-inner text-center rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">"La imaginación comienza con una página"</span>
+                <span class="section-heading-lower">Listado de libros</span>
+              </h2>
+              <p class="mb-0">Más aquí.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
