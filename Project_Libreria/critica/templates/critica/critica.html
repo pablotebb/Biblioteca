@@ -1,0 +1,107 @@
+
+{% extends "core/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+    <style>
+        body {
+            background-color: #003366;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden; 
+        }
+        .container2 {
+          clear: both;
+        }
+        .form-container {
+            width: 48%;
+            float: left;
+            margin-right: 2%;
+        }
+        .list-container {
+            padding-left: 65px;
+            width: 48%;
+            float: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Agregar Crítica</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.id_libros.id_for_label }}">Título:</label>
+                    {{ form.id_libros }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.contenido.id_for_label }}">Contenido:</label>
+                    {{ form.contenido }}
+                </div>
+                <button type="submit">Grabar</button>
+            </form>
+        </div>
+        <div class="list-container">
+            <h2>Listado de Críticas</h2>
+            <ul>
+                {% for critica in criticas %}
+                    <li>
+                        <strong>{{ critica.id_libros }}</strong>: "{{ critica.contenido }}"
+                        <div class="actions">
+                            <a href="{% url 'critica:editar_critica' critica.pk %}">Editar</a>
+                            <a href="{% url 'critica:borrar_critica' critica.pk %}">Borrar</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>No hay críticas disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="container2">
+    
+    </div>
+
+{% endblock %}

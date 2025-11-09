@@ -9,4 +9,5 @@ class Formulario_libros(forms.Form):
     categoria = forms.CharField(label="Categoria")
     contenido = forms.CharField(label="Contenido", widget=forms.Textarea)
     imagen = forms.ImageField(label="Imagen")
+   
     
