@@ -19,8 +19,27 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("core.urls",  namespace="core")),
-    path("critica/", include("critica.urls",  namespace="critica")),
+    path("", include("core.urls", namespace="core")),
+    path("critica/", include("critica.urls", namespace="critica")),
     path("libros/", include("libros.urls", namespace="libros")),
-    path("listado/", include("listado.urls",  namespace="listado")),
+    path("listado/", include("listado.urls", namespace="listado")),
+]
+# Project_Libreria/urls.py
+
+from django.contrib import admin
+# Asegúrate de que 'include' está importado
+from django.urls import path, include 
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    
+    # Tus otras rutas
+    path('', include('core.urls')), # O como tengas configurada la raíz
+    path('critica/', include('critica.urls')),
+    path('libros/', include('libros.urls')),
+    path('listado/', include('listado.urls')),
+
+    # --- AÑADE ESTA LÍNEA ---
+    # Esto activará las URLs de login, logout, cambio de contraseña, etc.
+    #path('accounts/', include('django.contrib.auth.urls')),
 ]
