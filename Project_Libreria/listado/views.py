@@ -2,8 +2,8 @@ from django.shortcuts import render
 from libros.models import Libro
 
 # Create your views here.
-def home(request): 
-  libros = Libro.objects.prefetch_related('critica_set').all()
+def home(request):
+  libros = Libro.objects.prefetch_related('id_libros').all()
   listado_libros = list()
 
   for libro in libros:

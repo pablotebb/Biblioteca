@@ -20,7 +20,7 @@ class Libro(models.Model):
   autor = models.CharField(max_length=50)
   titulo = models.CharField(max_length=50)
   categoria = models.ManyToManyField(Categoria)
-  contenido = models.CharField(max_length=50)
+  contenido = models.TextField(max_length=50)
   imagen = models.ImageField(upload_to="libros", null=True, blank=True)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now_add=True)
