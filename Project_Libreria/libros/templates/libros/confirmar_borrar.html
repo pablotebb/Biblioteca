@@ -1,0 +1,86 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+<style>
+  body {
+    background-color: #003366;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container-confirm {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #cccccc;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  button,
+  a.button-cancel {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  button {
+    background-color:  #007bff;;
+  }
+
+  button:hover {
+    background-color:  #0056b3;;
+  }
+
+  a.button-cancel {
+    background-color: #7f8c8d;
+  }
+
+  a.button-cancel:hover {
+    background-color: #5d6d7e;
+  }
+</style>
+
+
+
+  <div class="container-confirm">
+  <h1>¿Estás seguro de borrar esta crítica?</h1>
+  <p>{{ libro.autor }} - "{{ libro.titulo }}"</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, borrar</button>
+    <a href="{% url 'libro:libros' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

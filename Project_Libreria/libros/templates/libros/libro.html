@@ -1,0 +1,128 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+    <style>
+        body {
+            background-color: #003366;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden; 
+        }
+        .container2 {
+          clear: both;
+        }
+        .form-container {
+            width: 48%;
+            float: left;
+            margin-right: 2%;
+        }
+        .list-container {
+            padding-left: 65px;
+            width: 48%;
+            float: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Agregar Libro</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+                  {{ form.categoria }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.isbn.id_for_label }}">Isbn:</label>
+                    {{ form.isbn }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.autor.id_for_label }}">Autor:</label>
+                    {{ form.autor }}
+                </div>
+                <div class="form-group">
+                  <label for="{{ form.titulo.id_for_label }}">Titulo:</label>
+                  {{ form.titulo }}
+                </div>
+                <div class="form-group">
+                  <label for="{{ form.contenido.id_for_label }}">Contenido:</label>
+                  {{ form.contenido }}
+                </div>
+                <div class="form-group">
+                  <label for="{{ form.imagen.id_for_label }}">Imagen:</label>
+                  {{ form.imagen }}
+                </div>
+                <div class="form-check d-flex align-items-center gap-1">
+                  {{ form.leido }}
+                  <label class="form-check-label" for="{{ form.leido.id_for_label }}">
+                      Leído
+                  </label>
+                </div>
+                <button type="submit">Grabar</button>
+            </form>
+        </div>
+        <div class="list-container">
+            <h2>Listado de Libros</h2>
+            <ul>
+                {% for libro in libros %}
+                    <li>
+                        <strong>{{ libro.autor }}</strong>: "{{ libro.titulo }}"
+                        <div class="actions">
+                            <a href="{% url 'libro:editar_libro' libro.pk %}">Editar</a>
+                            <a href="{% url 'libro:borrar_libro' libro.pk %}">Borrar</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>No hay críticas disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="container2">
+    
+    </div>
+
+{% endblock %}

@@ -44,10 +44,9 @@
             <a class="nav-link text-uppercase text-expanded" href="{% url 'listado:Home' %}">Listado libros</a>
           </li>
           <li class="nav-item {% if request.path == '/libros/' %}active{% endif %} px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="{% url 'libros:Home' %}">Libros</a>
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'libro:libros' %}">Libros</a>
           </li>
           <li class="nav-item {% if request.path == '/critica/' %}active{% endif %} px-lg-4">
-            {% comment %} <a class="nav-link text-uppercase text-expanded" href="{% url 'critica:Home' %}">Critica</a> {% endcomment %}
             <a class="nav-link text-uppercase text-expanded" href="{% url 'critica:critica' %}">Critica</a>
           </li>
         </ul>
