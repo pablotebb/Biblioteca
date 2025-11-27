@@ -43,7 +43,11 @@ def editar_libro(request, pk):
       # form.save()
       return redirect('libro:libros')
     else:
-      form = Formulario_libros(instance=libro)
+      #form = Formulario_libros(instance=libro)
+      return render(request, 'libros/formulario.html', {'form': form})
+  else:
+    # Método GET: mostramos el formulario con los datos actuales
+    form = Formulario_libros(instance=libro)
     return render(request, 'libros/formulario.html', {'form': form})
 
 @login_required(login_url="/autenticacion/logear")

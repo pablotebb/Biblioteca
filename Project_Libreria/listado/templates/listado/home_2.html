@@ -74,11 +74,11 @@
             </td>
             <td>
               <ul class="criticas-list">
-                {% if libro.criticas %}
-                  <li>{{ libro.criticas.contenido }}</li>
-                {% else %}
+                <!-- {% for critica in libro.id_critica.all %}
+                  <li>{{ critica.contenido }}</li>
+                {% empty %}
                   <li>No hay críticas aún.</li>
-                {% endif %}
+                {% endfor %} -->
               </ul>
             </td>
           </tr>
