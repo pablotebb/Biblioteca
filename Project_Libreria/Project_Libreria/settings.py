@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'critica',
     'libros',
     'listado',
+    'autenticacion',
 ]
 
 MIDDLEWARE = [
