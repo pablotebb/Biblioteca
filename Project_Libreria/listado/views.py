@@ -6,11 +6,5 @@ from libros.models import Libro
 
 @login_required(login_url="/autenticacion/logear")
 def home(request):
-  libros = Libro.objects.prefetch_related('id_libros').all()
-  listado_libros = list()
-
-  for libro in libros:
-    listado_libros.append(libro)
-    
-  
-  return render(request, 'listado/home.html', {"listado": listado_libros})
+  libros = Libro.objects.all()
+  return render(request, 'listado/home.html', {"listado": libros})
