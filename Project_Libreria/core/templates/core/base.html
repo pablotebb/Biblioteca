@@ -28,6 +28,15 @@
         
       </div>
 
+      <div style="text-align: right; margin-right: 100px; color: white;">
+        {% if user.is_authenticated %}
+          Hola {{user.username}} &nbsp; &nbsp; <a href="{% url 'cerrar_sesion' %}" style="color: white;">Cerrar sesión</a>
+        {% else %}
+          <a href="{% url 'logear' %}" style="color: white;">Login</a> &nbsp; &nbsp; <a href="{% url 'autenticacion'%}" style="color: white;">Registrate</a>
+        {% endif %}
+      </div>
+
+
  <!-- Navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">

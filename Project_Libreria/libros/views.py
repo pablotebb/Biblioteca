@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Libro
 from .forms import Formulario_libros
 
+@login_required(login_url="/autenticacion/logear")
 def libro_view(request):
   if request.method == 'POST':
     form = Formulario_libros(request.POST)
@@ -28,20 +30,23 @@ def libro_view(request):
         'libros': libros,
     })
 
+@login_required(login_url="/autenticacion/logear")
 def editar_libro(request, pk):
   libro = get_object_or_404(Libro, pk=pk)
   if request.method == 'POST':
     form = Formulario_libros(request.POST, instance=libro)
     if form.is_valid():
       libro = form.save(commit=False)
-      libro.id_libros = request.user
+      libro.id_libros = request.user  # Asignamos el usuario logueado
       libro.save()
-      form.save_m2m()
+      form.save_m2m()  # Necesario para ManyToManyFields como 'categoria'
+      # form.save()
       return redirect('libro:libros')
-  else:
-    form = Formulario_libros(instance=libro)
-  return render(request, 'libros/formulario.html', {'form': form})
+    else:
+      form = Formulario_libros(instance=libro)
+    return render(request, 'libros/formulario.html', {'form': form})
 
+@login_required(login_url="/autenticacion/logear")
 def borrar_libro(request, pk):
   libro = get_object_or_404(Libro, pk=pk)
   if request.method == 'POST':

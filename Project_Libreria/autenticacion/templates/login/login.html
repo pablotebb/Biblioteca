@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<form method="post" action="" style="color:white;">
+  {% csrf_token %}
+  <div style="width: 75%; margin: auto;">
+    {{ form.non_field_errors }}
+    {% if messages %}
+      {% for mensaje in messages %}
+        <span class="alert alert-{{mensaje.tags}}">{{mensaje}}</span> 
+      {% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    {{form.as_p}}
+    <input type="submit" class="btn btn-success" value="Login">
+  </div>
+</form>
+
+{% endblock %}
